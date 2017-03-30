@@ -1,3 +1,3 @@
-# github-compare
+# gh-compare
 
-Compare github repositories in terminal.
+Compare GitHub repositories in terminal.

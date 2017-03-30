@@ -1,5 +1,5 @@
 {
-  "name": "github-compare",
+  "name": "gh-compare",
   "version": "1.0.0",
   "description": "Compare github repositories in terminal.",
   "main": "cli.js",
@@ -23,7 +23,7 @@
     "yargs": "^7.0.2"
   },
   "bin": {
-    "github-compare": "cli.js"
+    "gh-compare": "cli.js"
   },
   "preferGlobal": true
 }
