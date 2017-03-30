@@ -2,7 +2,7 @@
 
 Compare GitHub repositories in terminal.
 
-![](https://randompaper.co.s3.amazonaws.com/gh-compare.gif)
+![](http://randompaper.co.s3.amazonaws.com/gh-compare.gif)
 
 ## Install
 
