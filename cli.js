@@ -14,12 +14,8 @@ const getRepositoryDetails = fullname => {
   return fetch(url)
     .then(res => {
       if (parseInt(res.headers.get('x-ratelimit-remaining'), 10) == 0) {
-        const resetFrom = new Date(
-          parseInt(res.headers.get('x-ratelimit-reset'), 10) * 1000
-        )
-        return Promise.reject(
-          `Rate limit exceeded. Reset for ${distanceInWordsToNow(resetFrom)}`
-        )
+        const resetFrom = new Date(parseInt(res.headers.get('x-ratelimit-reset'), 10) * 1000)
+        return Promise.reject(`Rate limit exceeded. Reset for ${distanceInWordsToNow(resetFrom)}`)
       }
       return res.json()
     })
@@ -33,7 +29,7 @@ const getRepositoryDetails = fullname => {
       forks: json.forks_count,
       issues: json.open_issues_count, // issues + PRs
       size: json.size,
-      owner: json.owner.type
+      owner: json.owner.type,
     }))
 }
 
@@ -92,6 +88,10 @@ const printResult = repos => {
 const repoFullnames = argv._
 
 const init = () => {
+  if (repoFullnames.length == 0) {
+    console.log('Usage: $ gh-compare vuejs/vue facebook/react')
+    return Promise.reject('Give repo name')
+  }
   return Promise.all(repoFullnames.map(getRepositoryDetails))
     .then(printResult)
     .catch(err => {
