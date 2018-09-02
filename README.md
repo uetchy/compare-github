@@ -2,7 +2,7 @@
 
 Compare GitHub repositories in terminal.
 
-![](http://uechi-public.s3.amazonaws.com/github/gh-compare.gif)
+![](https://uetchy.github.io/gh-compare/screencast.gif)
 
 ## Install
 
