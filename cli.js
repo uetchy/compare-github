@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const argv = require('yargs').argv
+const { argv } = require('yargs')
 const Table = require('cli-table')
 const chalk = require('chalk')
 const ora = require('ora')
@@ -14,8 +14,14 @@ const getRepositoryDetails = fullname => {
   return fetch(url)
     .then(res => {
       if (parseInt(res.headers.get('x-ratelimit-remaining'), 10) == 0) {
-        const resetFrom = new Date(parseInt(res.headers.get('x-ratelimit-reset'), 10) * 1000)
-        return Promise.reject(`Rate limit exceeded. Reset for ${distanceInWordsToNow(resetFrom)}`)
+        const resetFrom = new Date(
+          parseInt(res.headers.get('x-ratelimit-reset'), 10) * 1000
+        )
+        return Promise.reject(
+          `Rate limit exceeded. It will be reset in ${distanceInWordsToNow(
+            resetFrom
+          )}`
+        )
       }
       return res.json()
     })
