@@ -23,6 +23,9 @@ const getRepositoryDetails = fullname => {
           )}`
         )
       }
+      if (res.status === 404) {
+        throw new Error(`Repository not found for ${fullname}`)
+      }
       return res.json()
     })
     .then(json => ({
@@ -87,7 +90,9 @@ const printResult = repos => {
     table.push({ [key]: values })
   })
 
-  spinner.info(`Compared to ${repos.length} repositories`)
+  spinner.info(
+    `Compared to ${repos.length} repositor${repos.length > 1 ? 'ies' : 'y'}`
+  )
   console.log(table.toString())
 }
 
@@ -98,10 +103,13 @@ const init = () => {
     console.log('Usage: $ gh-compare vuejs/vue facebook/react')
     return Promise.reject('Give repo name')
   }
-  return Promise.all(repoFullnames.map(getRepositoryDetails))
+  return Promise.all(
+    Array.from(new Set(repoFullnames)).map(getRepositoryDetails)
+  )
+
     .then(printResult)
     .catch(err => {
-      spinner.fail(`Something went wrong: ${err}`)
+      spinner.fail(err)
       return Promise.reject(err)
     })
 }

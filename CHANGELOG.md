@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* change name ([851edef](https://github.com/uetchy/gh-compare/commit/851edef))
+- change name ([851edef](https://github.com/uetchy/gh-compare/commit/851edef))
 
 <a name="1.0.0"></a>
 
@@ -16,4 +16,4 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* 1.0.0 cf53bf4
+- 1.0.0 cf53bf4
