@@ -3,9 +3,7 @@
   "version": "1.0.1",
   "description": "Compare github repositories in terminal.",
   "main": "cli.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "bin": {
     "gh-compare": "cli.js"
   },
