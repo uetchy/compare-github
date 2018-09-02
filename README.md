@@ -2,7 +2,7 @@
 
 Compare GitHub repositories in terminal.
 
-![](https://uetchy.github.io/gh-compare/screencast.gif)
+![](https://raw.githubusercontent.com/uetchy/gh-compare/gh-pages/screencast.gif)
 
 ## Install
 
