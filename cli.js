@@ -13,7 +13,7 @@ const getRepositoryDetails = fullname => {
   const url = `https://api.github.com/repos/${fullname}`
   return fetch(url)
     .then(res => {
-      if (parseInt(res.headers.get('x-ratelimit-remaining'), 10) == 0) {
+      if (parseInt(res.headers.get('x-ratelimit-remaining'), 10) === 0) {
         const resetFrom = new Date(
           parseInt(res.headers.get('x-ratelimit-reset'), 10) * 1000
         )
@@ -47,6 +47,7 @@ const argminmax = arr => {
   let deltaMax = arr[0]
   let deltaMinIdx = 0
   let deltaMaxIdx = 0
+
   arr.forEach((el, idx) => {
     if (el < deltaMin) {
       deltaMin = el
@@ -57,6 +58,7 @@ const argminmax = arr => {
       deltaMaxIdx = idx
     }
   })
+
   return { minIdx: deltaMinIdx, maxIdx: deltaMaxIdx }
 }
 
@@ -67,21 +69,21 @@ const printResult = repos => {
   keys.forEach(key => {
     let values = repos.map(repo => repo[key])
     if (['stars', 'watches', 'forks', 'issues'].includes(key)) {
-      const minmax = argminmax(values)
-      values[minmax.maxIdx] = chalk.green(values[minmax.maxIdx])
-      values[minmax.minIdx] = chalk.red(values[minmax.minIdx])
+      const { minIdx, maxIdx } = argminmax(values)
+      values[maxIdx] = chalk.green(values[maxIdx])
+      values[minIdx] = chalk.red(values[minIdx])
     }
     if (['size'].includes(key)) {
-      const minmax = argminmax(values)
+      const { minIdx, maxIdx } = argminmax(values)
       values = values.map(kb => bytes(kb * 1024))
-      values[minmax.minIdx] = chalk.green(values[minmax.minIdx])
-      values[minmax.maxIdx] = chalk.red(values[minmax.maxIdx])
+      values[minIdx] = chalk.green(values[minIdx])
+      values[maxIdx] = chalk.red(values[maxIdx])
     }
     if (['updated'].includes(key)) {
-      const minmax = argminmax(values)
+      const { minIdx, maxIdx } = argminmax(values)
       values = values.map(distanceInWordsToNow)
-      values[minmax.maxIdx] = chalk.green(values[minmax.maxIdx])
-      values[minmax.minIdx] = chalk.red(values[minmax.minIdx])
+      values[maxIdx] = chalk.green(values[maxIdx])
+      values[minIdx] = chalk.red(values[minIdx])
     }
     if (['created'].includes(key)) {
       values = values.map(distanceInWordsToNow)
@@ -106,7 +108,6 @@ const init = () => {
   return Promise.all(
     Array.from(new Set(repoFullnames)).map(getRepositoryDetails)
   )
-
     .then(printResult)
     .catch(err => {
       spinner.fail(err)
