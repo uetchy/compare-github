@@ -1,19 +1,10 @@
 {
   "name": "gh-compare",
-  "version": "1.1.0",
   "description": "Compare github repositories in terminal.",
+  "version": "1.1.0",
+  "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
   "main": "cli.js",
   "scripts": {},
-  "bin": {
-    "gh-compare": "cli.js"
-  },
-  "keywords": [
-    "github",
-    "compare",
-    "cli"
-  ],
-  "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
-  "license": "MIT",
   "dependencies": {
     "bytes": "^3.0.0",
     "chalk": "^2.4.0",
@@ -24,5 +15,17 @@
     "yargs": "^12.0.1"
   },
   "devDependencies": {},
+  "bin": {
+    "gh-compare": "cli.js"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "keywords": [
+    "cli",
+    "compare",
+    "github"
+  ],
+  "license": "MIT",
   "preferGlobal": true
 }
