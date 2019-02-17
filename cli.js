@@ -1,48 +1,53 @@
 #!/usr/bin/env node
 
-const { argv } = require('yargs')
-const Table = require('cli-table')
+const minimist = require('minimist')
 const chalk = require('chalk')
 const ora = require('ora')
-const bytes = require('bytes')
 const fetch = require('node-fetch')
+const bytes = require('bytes')
 const parse = require('date-fns/parse')
 const distanceInWordsToNow = require('date-fns/distance_in_words_to_now')
+const Table = require('cli-table')
+const MarkdownTable = require('markdown-table')
 
-const getRepositoryDetails = fullname => {
-  const url = `https://api.github.com/repos/${fullname}`
-  return fetch(url)
-    .then(res => {
-      if (parseInt(res.headers.get('x-ratelimit-remaining'), 10) === 0) {
-        const resetFrom = new Date(
-          parseInt(res.headers.get('x-ratelimit-reset'), 10) * 1000
-        )
-        return Promise.reject(
-          `Rate limit exceeded. It will be reset in ${distanceInWordsToNow(
-            resetFrom
-          )}`
-        )
-      }
-      if (res.status === 404) {
-        throw new Error(`Repository not found for ${fullname}`)
-      }
-      return res.json()
-    })
-    .then(json => ({
-      fullname: json.full_name,
-      language: json.language,
-      created: parse(json.created_at).getTime(),
-      updated: parse(json.pushed_at).getTime(),
-      stars: json.stargazers_count,
-      watches: json.subscribers_count,
-      forks: json.forks_count,
-      issues: json.open_issues_count, // issues + PRs
-      size: json.size,
-      owner: json.owner.type,
-    }))
+function CLITable(arr) {
+  const table = new Table()
+  table.push(...arr)
+  return table.toString()
 }
 
-const argminmax = arr => {
+async function getRepositoryDetails(fullname) {
+  const res = await fetch(`https://api.github.com/repos/${fullname}`)
+  if (parseInt(res.headers.get('x-ratelimit-remaining'), 10) === 0) {
+    const resetFrom = new Date(
+      parseInt(res.headers.get('x-ratelimit-reset'), 10) * 1000
+    )
+    throw new Error(
+      `Rate limit exceeded. It will be reset in ${distanceInWordsToNow(
+        resetFrom
+      )}`
+    )
+  }
+  if (res.status === 404) {
+    throw new Error(`Repository not found for ${fullname}`)
+  }
+
+  const json = await res.json()
+  return {
+    repository: json.full_name,
+    language: json.language,
+    created: parse(json.created_at).getTime(),
+    updated: parse(json.pushed_at).getTime(),
+    stars: json.stargazers_count,
+    watches: json.subscribers_count,
+    forks: json.forks_count,
+    issues: json.open_issues_count, // issues + PRs
+    size: json.size,
+    owner: json.owner.type,
+  }
+}
+
+function argminmax(arr) {
   let deltaMin = arr[0]
   let deltaMax = arr[0]
   let deltaMinIdx = 0
@@ -62,57 +67,72 @@ const argminmax = arr => {
   return { minIdx: deltaMinIdx, maxIdx: deltaMaxIdx }
 }
 
-const printResult = repos => {
-  const table = new Table()
-  const keys = Object.keys(repos[0])
+function injectValues(values, minBest = true, color = true, mapper) {
+  const { minIdx, maxIdx } = argminmax(values)
+  if (mapper) {
+    values = values.map(mapper)
+  }
+  if (color) {
+    const minColor = minBest ? chalk.green : chalk.red
+    const maxColor = minBest ? chalk.red : chalk.green
+    values[minIdx] = minColor(values[minIdx])
+    values[maxIdx] = maxColor(values[maxIdx])
+  }
+  return values
+}
 
-  keys.forEach(key => {
-    let values = repos.map(repo => repo[key])
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+function printResult(repos, markdownTable) {
+  const contents = Object.keys(repos[0]).map((key) => {
+    let values = repos.map((repo) => repo[key])
     if (['stars', 'watches', 'forks', 'issues'].includes(key)) {
-      const { minIdx, maxIdx } = argminmax(values)
-      values[maxIdx] = chalk.green(values[maxIdx])
-      values[minIdx] = chalk.red(values[minIdx])
+      values = injectValues(values, false, !markdownTable)
+    } else if (key === 'size') {
+      values = injectValues(values, true, !markdownTable, (kb) =>
+        bytes(kb * 1024)
+      )
+    } else if (key === 'updated') {
+      values = injectValues(values, false, !markdownTable, distanceInWordsToNow)
+    } else if (key === 'created') {
+      values = injectValues(values, false, false, distanceInWordsToNow)
     }
-    if (['size'].includes(key)) {
-      const { minIdx, maxIdx } = argminmax(values)
-      values = values.map(kb => bytes(kb * 1024))
-      values[minIdx] = chalk.green(values[minIdx])
-      values[maxIdx] = chalk.red(values[maxIdx])
-    }
-    if (['updated'].includes(key)) {
-      const { minIdx, maxIdx } = argminmax(values)
-      values = values.map(distanceInWordsToNow)
-      values[maxIdx] = chalk.green(values[maxIdx])
-      values[minIdx] = chalk.red(values[minIdx])
-    }
-    if (['created'].includes(key)) {
-      values = values.map(distanceInWordsToNow)
-    }
-
-    table.push({ [key]: values })
+    return [capitalize(key), ...values]
   })
 
   spinner.info(
     `Compared to ${repos.length} repositor${repos.length > 1 ? 'ies' : 'y'}`
   )
-  console.log(table.toString())
+  const table = markdownTable ? MarkdownTable(contents) : CLITable(contents)
+
+  console.log(table)
 }
 
-const repoFullnames = argv._
-
-const init = () => {
-  if (repoFullnames.length == 0) {
+async function init(repoFullnames, markdownMode) {
+  if (repoFullnames.length === 0) {
     console.log('Usage: $ gh-compare vuejs/vue facebook/react')
-    return Promise.reject('Give repo name')
+    throw new Error('no repos given')
   }
-  return Promise.all(
-    Array.from(new Set(repoFullnames)).map(getRepositoryDetails)
-  )
-    .then(printResult)
-    .catch(err => {
-      spinner.fail(err)
-      return Promise.reject(err)
-    })
+  try {
+    const repos = await Promise.all(
+      Array.from(new Set(repoFullnames)).map(getRepositoryDetails)
+    )
+    printResult(repos, markdownMode)
+  } catch (err) {
+    spinner.fail(err)
+    throw new Error(err)
+  }
 }
 
-const spinner = ora.promise(init(), 'Generating comparison')
+const argv = minimist(process.argv.slice(2), {
+  boolean: ['markdown'],
+  alias: { markdown: ['md', 'm'] },
+})
+const repoFullnames = argv._
+const markdownMode = argv.markdown
+const spinner = ora.promise(
+  init(repoFullnames, markdownMode),
+  'Generating comparison'
+)

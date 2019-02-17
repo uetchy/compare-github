@@ -10,22 +10,34 @@
     "chalk": "^2.4.0",
     "cli-table": "^0.3.1",
     "date-fns": "^1.28.2",
+    "markdown-table": "^1.1.2",
+    "minimist": "^1.2.0",
     "node-fetch": "^2.1.2",
-    "ora": "^3.0.0",
-    "yargs": "^12.0.1"
+    "ora": "^3.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^24.1.0",
+    "test-console": "^1.1.0"
+  },
   "bin": {
     "gh-compare": "cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/uetchy/gh-compare/issues"
   },
   "files": [
     "cli.js"
   ],
+  "homepage": "https://github.com/uetchy/gh-compare",
   "keywords": [
     "cli",
     "compare",
     "github"
   ],
   "license": "MIT",
-  "preferGlobal": true
+  "preferGlobal": true,
+  "repository": {
+    "url": "https://github.com/uetchy/gh-compare.git",
+    "type": "git"
+  }
 }
