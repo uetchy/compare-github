@@ -68,4 +68,4 @@ gh-compare vuejs/vue facebook/react --markdown
 
 PRs are accepted.
 
-See [CONTRIBUTING.md]('./CONTRIBUTING.md) for more information.
+See [CONTRIBUTING.md]('/CONTRIBUTING.md) for more information.
