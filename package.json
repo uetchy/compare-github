@@ -3,8 +3,12 @@
   "description": "Compare github repositories in terminal.",
   "version": "2.0.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
-  "main": "cli.js",
-  "scripts": {},
+  "main": "lib/cli.js",
+  "scripts": {
+    "build": "babel -d lib --ignore '*/__tests__/**' --delete-dir-on-start src",
+    "format": "prettier --write 'src/**/*.js'",
+    "test": "jest"
+  },
   "dependencies": {
     "bytes": "^3.0.0",
     "chalk": "^2.4.0",
@@ -16,8 +20,14 @@
     "ora": "^3.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
-    "test-console": "^1.1.0"
+    "nock": "^10.0.6",
+    "prettier": "^1.16.4"
   },
   "bin": {
     "gh-compare": "cli.js"
