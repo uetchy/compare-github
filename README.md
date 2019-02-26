@@ -63,3 +63,9 @@ gh-compare vuejs/vue facebook/react --markdown
 | Owner      | Organization   | Organization   |
 ✔ Generating comparison
 ```
+
+# Contribution
+
+PRs are accepted.
+
+See [CONTRIBUTING.md]('./CONTRIBUTING.md) for more information.
