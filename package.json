@@ -6,7 +6,7 @@
   "main": "lib/cli.js",
   "scripts": {
     "build": "babel -d lib --ignore '*/__tests__/**' --delete-dir-on-start src",
-    "format": "prettier --write 'src/**/*.js'",
+    "lint": "eslint 'src/**/*.js' --fix && prettier --write 'src/**/*.js'",
     "test": "jest"
   },
   "dependencies": {
@@ -25,6 +25,8 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
     "babel-jest": "^24.1.0",
+    "eslint": "^5.15.1",
+    "eslint-plugin-jest": "^22.3.0",
     "jest": "^24.1.0",
     "nock": "^10.0.6",
     "prettier": "^1.16.4"
