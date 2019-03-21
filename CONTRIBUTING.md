@@ -19,8 +19,9 @@ Run unit tests to see if your changes break nothing.
 npm test
 ```
 
-Format entire code.
+Lint and format entire code.
 
 ```
+npm run lint
 npm run format
 ```
