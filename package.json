@@ -58,7 +58,10 @@
   ],
   "license": "MIT",
   "lint-staged": {
-    "*.js": "eslint --fix"
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "preferGlobal": true,
   "repository": {
