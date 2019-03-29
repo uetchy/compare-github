@@ -48,7 +48,8 @@
   "homepage": "https://github.com/uetchy/gh-compare",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && pretty-quick --staged"
+      "pre-commit": "lint-staged && pretty-quick --staged",
+      "pre-push": "yarn test"
     }
   },
   "keywords": [
