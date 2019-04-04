@@ -1,16 +1,30 @@
-import chalk from 'chalk'
-import fetch from 'node-fetch'
-import parse from 'date-fns/parse'
-import Table from 'cli-table'
 import bytes from 'bytes'
+import chalk from 'chalk'
+import Table from 'cli-table'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
+import parse from 'date-fns/parse'
 import MarkdownTable from 'markdown-table'
+import fetch from 'node-fetch'
 
-export async function getRepositoryDetails(fullname) {
+interface IRepo {
+  repository: string
+  language: string
+  created: number
+  updated: number
+  stars: string
+  watches: string
+  forks: string
+  issues: string
+  size: string
+  owner: string
+  [index: string]: any
+}
+
+export async function getRepositoryDetails(fullname: string): Promise<IRepo> {
   const res = await fetch(`https://api.github.com/repos/${fullname}`)
-  if (parseInt(res.headers.get('x-ratelimit-remaining'), 10) === 0) {
+  if (parseInt(res.headers.get('x-ratelimit-remaining') as string, 10) === 0) {
     const resetFrom = new Date(
-      parseInt(res.headers.get('x-ratelimit-reset'), 10) * 1000
+      parseInt(res.headers.get('x-ratelimit-reset') as string, 10) * 1000
     )
     throw new Error(
       `Rate limit exceeded. It will be reset in ${distanceInWordsToNow(
@@ -24,20 +38,20 @@ export async function getRepositoryDetails(fullname) {
 
   const json = await res.json()
   return {
-    repository: json.full_name,
-    language: json.language,
     created: parse(json.created_at).getTime(),
-    updated: parse(json.pushed_at).getTime(),
-    stars: json.stargazers_count,
-    watches: json.subscribers_count,
     forks: json.forks_count,
     issues: json.open_issues_count, // issues + PRs
-    size: json.size,
+    language: json.language,
     owner: json.owner.type,
+    repository: json.full_name,
+    size: json.size,
+    stars: json.stargazers_count,
+    updated: parse(json.pushed_at).getTime(),
+    watches: json.subscribers_count,
   }
 }
 
-export function generateTable(repos, markdownTable) {
+export function generateTable(repos: IRepo[], markdownTable: boolean) {
   const contents = Object.keys(repos[0]).map((key) => {
     let values = repos.map((repo) => repo[key])
     if (['stars', 'watches', 'forks', 'issues'].includes(key)) {
@@ -58,13 +72,13 @@ export function generateTable(repos, markdownTable) {
   return table
 }
 
-function CLITable(arr) {
+function CLITable(arr: any[]) {
   const table = new Table()
   table.push(...arr)
   return table.toString()
 }
 
-function argminmax(arr) {
+function argminmax(arr: number[]) {
   let deltaMin = arr[0]
   let deltaMax = arr[0]
   let deltaMinIdx = 0
@@ -84,7 +98,12 @@ function argminmax(arr) {
   return { minIdx: deltaMinIdx, maxIdx: deltaMaxIdx }
 }
 
-function injectValues(values, minBest = true, color = true, mapper) {
+function injectValues(
+  values: any[],
+  minBest = true,
+  color = true,
+  mapper?: (value: any) => any
+) {
   const { minIdx, maxIdx } = argminmax(values)
   if (mapper) {
     values = values.map(mapper)
@@ -98,6 +117,6 @@ function injectValues(values, minBest = true, color = true, mapper) {
   return values
 }
 
-function capitalize(str) {
+function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
