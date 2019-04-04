@@ -8,7 +8,7 @@ npm run build
 ## Run
 
 ```
-npx babel-node ./src/cli.js
+npx ts-node ./src/cli.ts
 ```
 
 # Before Creating Pull Request
