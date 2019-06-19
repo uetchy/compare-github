@@ -1,11 +1,12 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
+  "extends": ["tslint:latest"],
   "jsRules": {},
   "rules": {
     "quotemark": false,
     "semicolon": false,
-    "trailing-comma": false
+    "trailing-comma": false,
+    "interface-name": false
   },
   "rulesDirectory": []
 }
