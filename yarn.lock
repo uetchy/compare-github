@@ -2679,9 +2679,9 @@ levn@~0.3.0:
     type-check "~0.3.2"
 
 lint-staged@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-9.0.0.tgz#3ab93063f11ee2e6782769149de0f1e815d49731"
-  integrity sha512-32TJoaeyAaj3rvabaXWe0eOhAhnsYRixEmXuSxKbs0uczFbwVjoDhJ/s2g6r1v8jMTw7t5OzXlHR8iaKtz8nLQ==
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-9.1.0.tgz#24564128c9208bf5d8001a66afe7156dfbe9da30"
+  integrity sha512-jI+oj159MHVlsGxMFkzTPrin0Jt8ltVJWSfCPn/xM+qiIPwCimjuhq9//IiNMaNj8VIFZ8QlaAF4qecWTbUOPQ==
   dependencies:
     chalk "^2.4.2"
     commander "^2.20.0"
