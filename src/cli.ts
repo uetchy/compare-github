@@ -7,7 +7,7 @@ import { generateTable, getRepositoryDetails } from './util'
 async function init(names: string[], enableMarkdown: boolean): Promise<void> {
   if (names.length === 0) {
     // tslint:disable-next-line: no-console
-    console.log('Usage: $ gh-compare vuejs/vue facebook/react')
+    console.log('Usage: $ compare-github vuejs/vue facebook/react')
     throw new Error('no repos given')
   }
   try {

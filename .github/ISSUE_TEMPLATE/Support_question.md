@@ -9,4 +9,4 @@ We primarily use GitHub as an issue tracker; for usage and support questions, pl
 
 - Twitter: If it's just a quick question you can ping my Twitter: https://twitter.com/uetschy
 - Also have a look at the readme for more information on how to get support:
-  https://github.com/uetchy/gh-compare/blob/master/README.md
+  https://github.com/uetchy/compare-github/blob/master/README.md

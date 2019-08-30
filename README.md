@@ -1,22 +1,22 @@
-# gh-compare
+# compare-github
 
-[![Build Status](https://travis-ci.com/uetchy/gh-compare.svg?branch=master)](https://travis-ci.org/uetchy/gh-compare)
-[![Coverage Status](https://coveralls.io/repos/github/uetchy/gh-compare/badge.svg?branch=master)](https://coveralls.io/github/uetchy/gh-compare?branch=master)
+[![Build Status](https://travis-ci.com/uetchy/compare-github.svg?branch=master)](https://travis-ci.org/uetchy/compare-github)
+[![Coverage Status](https://coveralls.io/repos/github/uetchy/compare-github/badge.svg?branch=master)](https://coveralls.io/github/uetchy/compare-github?branch=master)
 
 Compare GitHub repositories in terminal.
 
-![](https://raw.githubusercontent.com/uetchy/gh-compare/gh-pages/screencast.gif)
+![](https://raw.githubusercontent.com/uetchy/compare-github/gh-pages/screencast.gif)
 
 ## Install
 
 ```shell
-npm install --global gh-compare
+npm install --global compare-github
 ```
 
 ## Usage
 
 ```shell
-gh-compare vuejs/vue facebook/react
+compare-github vuejs/vue facebook/react
 ```
 
 ```shell
@@ -48,7 +48,7 @@ gh-compare vuejs/vue facebook/react
 with markdown table:
 
 ```shell
-gh-compare vuejs/vue facebook/react --markdown
+compare-github vuejs/vue facebook/react --markdown
 ```
 
 ```shell
