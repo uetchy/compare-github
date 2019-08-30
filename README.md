@@ -10,7 +10,7 @@ Compare GitHub repositories in terminal.
 ## Install
 
 ```shell
-npm install --global compare-github
+npm install --global @compare/github
 ```
 
 ## Usage
