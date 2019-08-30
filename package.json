@@ -1,5 +1,5 @@
 {
-  "name": "gh-compare",
+  "name": "@compare/github",
   "description": "Compare github repositories in terminal.",
   "version": "2.0.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
@@ -45,10 +45,11 @@
     "typescript": "^3.4.1"
   },
   "bin": {
+    "compare-github": "lib/cli.js",
     "gh-compare": "lib/cli.js"
   },
   "bugs": {
-    "url": "https://github.com/uetchy/gh-compare/issues"
+    "url": "https://github.com/uetchy/compare-github/issues"
   },
   "files": [
     "lib/cli.js",
@@ -56,7 +57,7 @@
     "lib/util.js",
     "lib/util.d.ts"
   ],
-  "homepage": "https://github.com/uetchy/gh-compare",
+  "homepage": "https://github.com/uetchy/compare-github",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && pretty-quick --staged",
@@ -77,7 +78,7 @@
   },
   "preferGlobal": true,
   "repository": {
-    "url": "https://github.com/uetchy/gh-compare.git",
+    "url": "https://github.com/uetchy/compare-github.git",
     "type": "git"
   }
 }
