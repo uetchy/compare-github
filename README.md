@@ -1,6 +1,6 @@
 # compare-github
 
-[![Build Status](https://travis-ci.com/uetchy/compare-github.svg?branch=master)](https://travis-ci.org/uetchy/compare-github)
+[![Build Status](https://travis-ci.com/uetchy/compare-github.svg?branch=master)](https://travis-ci.com/uetchy/compare-github)
 [![Coverage Status](https://coveralls.io/repos/github/uetchy/compare-github/badge.svg?branch=master)](https://coveralls.io/github/uetchy/compare-github?branch=master)
 
 Compare GitHub repositories in terminal.
