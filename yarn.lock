@@ -349,9 +349,9 @@
     "@babel/types" "^7.3.0"
 
 "@types/bytes@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/bytes/-/bytes-3.0.0.tgz#549eeacd0a8fecfaa459334583a4edcee738e6db"
-  integrity sha512-ZF43+CIIlzngQe8/Zo7L1kpY9W8O6rO006VDz3c5iM21ddtXWxCEyOXyft+q4pVF2tGqvrVuVrEDH1+gJEi1fQ==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@types/bytes/-/bytes-3.1.0.tgz#835a3e4aea3b4d7604aca216a78de372bff3ecc3"
+  integrity sha512-5YG1AiIC8HPPXRvYAIa7ehK3YMAwd0DWiPCtpuL9sgKceWLyWsVtLRA+lT4NkoanDNF9slwQ66lPizWDpgRlWA==
 
 "@types/cli-table@^0.3.0":
   version "0.3.0"
