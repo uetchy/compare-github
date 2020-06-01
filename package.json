@@ -28,7 +28,7 @@
     "@types/cli-table": "^0.3.0",
     "@types/jest": "^25.1.0",
     "@types/minimist": "^1.2.0",
-    "@types/node": "^13.5.0",
+    "@types/node": "^14.0.6",
     "@types/node-fetch": "^2.1.7",
     "coveralls": "^3.0.3",
     "husky": "^4.2.1",
