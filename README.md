@@ -1,5 +1,7 @@
 # compare-github
 
+[![npm: version](https://badgen.net/npm/v/@compare/github)](https://npmjs.com/package/@compare/github)
+![npm: total downloads](https://badgen.net/npm/dt/@compare/github)
 [![Build Status](https://travis-ci.com/uetchy/compare-github.svg?branch=master)](https://travis-ci.com/uetchy/compare-github)
 [![Coverage Status](https://coveralls.io/repos/github/uetchy/compare-github/badge.svg?branch=master)](https://coveralls.io/github/uetchy/compare-github?branch=master)
 
@@ -10,10 +12,10 @@ Compare GitHub repositories in terminal.
 ## Install
 
 ```shell
-npm install --global @compare/github
+npm install -g @compare/github
 ```
 
-## Usage
+## Use
 
 ```shell
 compare-github vuejs/vue facebook/react
