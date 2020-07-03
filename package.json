@@ -3,8 +3,6 @@
   "description": "Compare github repositories in terminal.",
   "version": "3.0.0",
   "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
-  "main": "lib/util.js",
-  "types": "lib/util.d.ts",
   "scripts": {
     "build": "tsc",
     "clean": "shx rm lib",
@@ -43,12 +41,11 @@
     "tslint": "^6.0.0",
     "typescript": "^3.9.6"
   },
+  "types": "lib/util.d.ts",
+  "main": "lib/util.js",
   "bin": {
     "compare-github": "lib/cli.js",
     "gh-compare": "lib/cli.js"
-  },
-  "bugs": {
-    "url": "https://github.com/uetchy/compare-github/issues"
   },
   "files": [
     "lib/cli.js",
@@ -56,28 +53,31 @@
     "lib/util.js",
     "lib/util.d.ts"
   ],
-  "homepage": "https://github.com/uetchy/compare-github",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && pretty-quick --staged",
       "pre-push": "yarn test"
     }
   },
-  "keywords": [
-    "cli",
-    "compare",
-    "github"
-  ],
-  "license": "MIT",
   "lint-staged": {
     "*.ts": [
       "tslint --fix",
       "git add"
     ]
   },
-  "preferGlobal": true,
   "repository": {
     "url": "https://github.com/uetchy/compare-github.git",
     "type": "git"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/uetchy/compare-github/issues"
+  },
+  "homepage": "https://github.com/uetchy/compare-github",
+  "keywords": [
+    "cli",
+    "compare",
+    "github"
+  ],
+  "license": "MIT",
+  "preferGlobal": true
 }
