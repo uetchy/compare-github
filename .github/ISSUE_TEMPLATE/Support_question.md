@@ -7,6 +7,6 @@ We primarily use GitHub as an issue tracker; for usage and support questions, pl
 
 ---
 
-- Twitter: If it's just a quick question you can ping my Twitter: https://twitter.com/uetschy
+- Twitter: If it's just a quick question you can ping my Twitter: https://twitter.com/uechz
 - Also have a look at the readme for more information on how to get support:
   https://github.com/uetchy/compare-github/blob/master/README.md
