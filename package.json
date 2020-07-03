@@ -9,6 +9,7 @@
     "coverage": "cat ./coverage/lcov.info | coveralls",
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "tslint --project tsconfig.json --fix",
+    "prepublishOnly": "yarn build",
     "test": "jest --coverage"
   },
   "dependencies": {
